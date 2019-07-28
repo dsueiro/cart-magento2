@@ -1,7 +1,9 @@
 <?php
 namespace MercadoPago\Core\Controller\Notifications;
 
-
+use Magento\Framework\App\CsrfAwareActionInterface;
+use Magento\Framework\App\Request\InvalidRequestException;
+use Magento\Framework\App\RequestInterface;
 /**
  * Class Custom
  *
@@ -9,7 +11,7 @@ namespace MercadoPago\Core\Controller\Notifications;
  */
 class Custom
   extends \Magento\Framework\App\Action\Action
-
+    implements CsrfAwareActionInterface
 {
   /**
      * @var \MercadoPago\Core\Helper\
@@ -49,6 +51,23 @@ class Custom
     $this->_statusHelper = $statusHelper;
     parent::__construct($context);
   }
+
+    /**
+     * @inheritDoc
+     */
+    public function createCsrfValidationException(
+        RequestInterface $request
+    ): ?InvalidRequestException {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function validateForCsrf(RequestInterface $request): ?bool
+    {
+        return true;
+    }
 
   /**
    * Controller Action
