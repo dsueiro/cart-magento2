@@ -222,6 +222,7 @@ class StatusUpdate
       $statusEmailList = explode(",", $statusEmail);
 
       //check if the status is on the authorized list
+      $status = $order->getStatus();
       if(in_array($status, $statusEmailList)){    
         $orderCommentSender = $objectManager->create('Magento\Sales\Model\Order\Email\Sender\OrderCommentSender');
         $orderCommentSender->send($order, $notify = '1' , str_replace("<br/>", "", $message));
